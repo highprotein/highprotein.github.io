@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sold Out | Seller Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body
+    class="bg-white text-slate-800 h-screen flex flex-col overflow-hidden selection:bg-red-500 selection:text-white"
+  >
+    <!-- START SCREEN OVERLAY -->
+    <div
+      id="startScreen"
+      class="fixed inset-0 z-[100] bg-green-500 flex flex-col items-center justify-center text-center p-6 transition-opacity duration-500"
+    >
+      <img
+        src="Game_logo_1.png"
+        alt="Sold Out"
+        class="max-w-md w-full mb-8 drop-shadow-2xl"
+      />
+
+      <p
+        class="text-xl md:text-2xl font-bold text-white mb-12 max-w-2xl drop-shadow-md leading-relaxed"
+      >
+        Your soul or your sales? How far are you willing to go to please the
+        Algorithm God and make your first million?
+      </p>
+
+      <button
+        id="startBtn"
+        class="px-10 py-4 text-xl font-black text-black border-4 border-black bg-transparent hover:bg-black hover:text-white transition-all duration-300 uppercase tracking-widest shadow-xl transform hover:scale-105"
+      >
+        Open Shop
+      </button>
+    </div>
+
+    <!-- CRT Scanline Effect Overlay -->
+    <div
+      class="scanline absolute inset-0 z-50 opacity-10 pointer-events-none"
+    ></div>
+
+    <!-- ACT 1 SCREEN -->
+    <div
+      id="act1Screen"
+      class="hidden fixed inset-0 z-[60] flex flex-col h-full w-full"
+    >
+      <!-- Top Bar (20%) -->
+      <div
+        class="h-[10%] bg-blue-950 border-b-8 border-red-700 flex items-center justify-center shadow-2xl z-20 relative"
+      >
+        <img
+          src="Game_logo_1.png"
+          class="h-full py-2 object-contain drop-shadow-lg"
+          alt="Game Logo"
+        />
+      </div>
+      <!-- Split Content (80%) -->
+      <div class="h-[90%] flex flex-row w-full">
+        <!-- Left Side (80%) -->
+        <div
+          class="w-[80%] bg-white border-r-8 border-amber-900/50 relative flex flex-col items-center justify-center p-10"
+        >
+          <img
+            src="purple-monk.png"
+            id="monkImg"
+            class="w-80 h-80 object-contain mb-8 drop-shadow-2xl opacity-0 transition-opacity duration-1000 brightness-110 contrast-125"
+            alt="Purple Monk"
+          />
+
+          <div
+            id="dialogueBox"
+            class="opacity-0 transition-opacity duration-500 bg-slate-900 border-4 border-purple-600 p-8 rounded-xl shadow-2xl max-w-4xl w-full relative"
+          >
+            <div
+              class="absolute -top-5 left-8 bg-purple-600 text-white px-6 py-2 font-bold uppercase text-sm tracking-widest rounded shadow-lg"
+            >
+              Algorithm Believer
+            </div>
+            <p
+              id="dialogueText"
+              class="text-2xl text-slate-200 mono leading-relaxed min-h-[4rem]"
+            ></p>
+            <div
+              id="dialogueButtons"
+              class="hidden mt-8 flex gap-4 justify-end"
+            >
+              <button
+                class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 px-6 rounded border-2 border-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.5)] transition-all transform hover:scale-105"
+              >
+                I will do as I am told.
+              </button>
+              <button
+                class="bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white font-bold py-3 px-6 rounded border-2 border-slate-600 transition-all transform hover:scale-105"
+              >
+                Nah, I'll do my own thing.
+              </button>
+              <button
+                id="continueBtn"
+                class="hidden bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-6 rounded border-2 border-green-400 shadow-[0_0_15px_rgba(34,197,94,0.5)] transition-all transform hover:scale-105"
+              >
+                Proceed to Selection
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Selection Screen -->
+          <div
+            id="productSelectionScreen"
+            class="hidden w-full h-full flex flex-col items-center justify-center animate-fade-in"
+          >
+            <h2
+              class="text-4xl font-black text-slate-800 mb-12 uppercase tracking-widest drop-shadow-sm"
+            >
+              Select Your Products
+            </h2>
+            <p class="text-xl text-slate-600 mb-8 font-bold uppercase tracking-wider">
+              Items Chosen: <span id="item-counter" class="text-purple-600">0</span>/3
+            </h2>
+            <div class="flex flex-wrap justify-center gap-8">
+              <!-- Product 1 -->
+              <div
+                class="bg-white border-4 border-slate-200 p-6 rounded-2xl shadow-xl flex flex-col items-center w-72 transition-all hover:-translate-y-2 hover:shadow-2xl hover:border-purple-400 group"
+              >
+                <div
+                  class="w-full h-48 bg-slate-100 mb-6 rounded-lg flex items-center justify-center overflow-hidden border border-slate-200"
+                >
+                  <img
+                    src="shop-items/headphone.jpg"
+                    alt="Bluetooth Headphones"
+                    class="object-contain h-full w-full group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+                <h3 class="font-bold text-xl text-slate-700 mb-2">
+                  Bluetooth Headphones
+                </h3>
+                <p
+                  class="text-xs text-slate-400 mb-6 uppercase tracking-wide font-bold"
+                >
+                  Low Risk • Low Reward
+                </p>
+                <button
+                  class="product-btn w-full py-3 bg-slate-800 text-white font-bold rounded hover:bg-purple-600 transition-colors uppercase tracking-wider text-sm"
+                  data-product="Bluetooth Headphones"
+                >
+                  Choose This
+                </button>
+              </div>
+              <!-- Product 2 -->
+              <div
+                class="bg-white border-4 border-slate-200 p-6 rounded-2xl shadow-xl flex flex-col items-center w-72 transition-all hover:-translate-y-2 hover:shadow-2xl hover:border-purple-400 group"
+              >
+                <div
+                  class="w-full h-48 bg-slate-100 mb-6 rounded-lg flex items-center justify-center overflow-hidden border border-slate-200"
+                >
+                  <img
+                    src="shop-items/paracetomol.png"
+                    alt="Paracetomol 500g"
+                    class="object-contain h-full w-full group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+                <h3 class="font-bold text-xl text-slate-700 mb-2">
+                  Paracetomol 500g
+                </h3>
+                <p
+                  class="text-xs text-slate-400 mb-6 uppercase tracking-wide font-bold"
+                >
+                  High Risk • High Reward
+                </p>
+                <button
+                  class="product-btn w-full py-3 bg-slate-800 text-white font-bold rounded hover:bg-purple-600 transition-colors uppercase tracking-wider text-sm"
+                  data-product="Paracetomol 500g"
+                >
+                  Choose This
+                </button>
+              </div>
+              <!-- Product 3 -->
+              <div
+                class="bg-white border-4 border-slate-200 p-6 rounded-2xl shadow-xl flex flex-col items-center w-72 transition-all hover:-translate-y-2 hover:shadow-2xl hover:border-purple-400 group"
+              >
+                <div
+                  class="w-full h-48 bg-slate-100 mb-6 rounded-lg flex items-center justify-center overflow-hidden border border-slate-200"
+                >
+                  <img
+                    src="shop-items/usb.jpeg"
+                    alt="USB flash drive 128GB"
+                    class="object-contain h-full w-full group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+                <h3 class="font-bold text-xl text-slate-700 mb-2">
+                  USB flash drive 128GB
+                </h3>
+                <p
+                  class="text-xs text-slate-400 mb-6 uppercase tracking-wide font-bold"
+                >
+                  Med Risk • Med Reward
+                </p>
+                <button
+                  class="product-btn w-full py-3 bg-slate-800 text-white font-bold rounded hover:bg-purple-600 transition-colors uppercase tracking-wider text-sm"
+                  data-product="USB flash drive 128GB"
+                >
+                  Choose This
+                </button>
+              </div>
+              <!-- Product 4 -->
+              <div
+                class="bg-white border-4 border-slate-200 p-6 rounded-2xl shadow-xl flex flex-col items-center w-72 transition-all hover:-translate-y-2 hover:shadow-2xl hover:border-purple-400 group"
+              >
+                <div
+                  class="w-full h-48 bg-slate-100 mb-6 rounded-lg flex items-center justify-center overflow-hidden border border-slate-200"
+                >
+                  <img
+                    src="shop-items/hairdryer.png"
+                    alt="Standard Hairdryer"
+                    class="object-contain h-full w-full group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+                <h3 class="font-bold text-xl text-slate-700 mb-2">
+                  Standard Hairdryer
+                </h3>
+                <p
+                  class="text-xs text-slate-400 mb-6 uppercase tracking-wide font-bold"
+                >
+                  Med Risk • Med Reward
+                </p>
+                <button
+                  class="product-btn w-full py-3 bg-slate-800 text-white font-bold rounded hover:bg-purple-600 transition-colors uppercase tracking-wider text-sm"
+                  data-product="Standard Hairdryer"
+                >
+                  Choose This
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Name Shop Screen -->
+          <div
+            id="nameShopScreen"
+            class="hidden w-full h-full flex flex-col items-center justify-center animate-fade-in"
+          >
+            <h2
+              class="text-4xl font-black text-slate-800 mb-8 uppercase tracking-widest"
+            >
+              Name Your Shop
+            </h2>
+            <input
+              type="text"
+              id="shopNameInput"
+              class="text-3xl p-4 border-b-4 border-slate-800 bg-transparent text-center font-bold uppercase focus:outline-none focus:border-purple-600 w-1/2 mb-12 placeholder-slate-300 transition-colors"
+              placeholder="Type Name Here"
+              maxlength="15"
+            />
+            <button
+              id="confirmNameBtn"
+              class="bg-slate-800 hover:bg-purple-600 text-white font-bold py-4 px-10 rounded shadow-xl transition-all transform hover:scale-105 uppercase tracking-widest"
+            >
+              Open For Business
+            </button>
+          </div>
+
+          <!-- My Shop Screen -->
+          <div
+            id="myShopScreen"
+            class="hidden w-full h-full p-8 animate-fade-in"
+          >
+            <div id="shop-dashboard" class="grid grid-cols-10 gap-6 h-full">
+              <!-- Left Column (70%) -->
+              <div class="col-span-7 flex flex-col h-full overflow-hidden">
+                <div class="border-b-4 border-slate-800 pb-4 shrink-0">
+                  <h2
+                    id="dashboard-shop-name"
+                    class="text-5xl font-black text-slate-800 uppercase tracking-widest"
+                  >
+                    My Shop
+                  </h2>
+                </div>
+                <div class="overflow-y-auto flex-1 mt-4 pr-2">
+                  <h3 class="text-xl font-bold text-slate-500 mb-4 uppercase tracking-wider">
+                    Current Inventory
+                  </h3>
+                  <div id="inventory-row" class="flex flex-col gap-4">
+                    <!-- Items will be injected here by JS -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right Column (30%) - Event Hub -->
+              <div class="col-span-3 flex flex-col h-full bg-slate-50 border-4 border-slate-200 rounded-xl overflow-hidden shadow-inner">
+                <div id="event-log" class="flex-1 overflow-y-auto p-4 font-mono text-xs text-slate-600 bg-white flex flex-col gap-2">
+                  <p class="text-slate-400 italic border-b border-slate-100 pb-1">Event log initialized...</p>
+                </div>
+                <div class="p-4 bg-slate-100 border-t-4 border-slate-200">
+                  <button
+                    id="nextDayBtn"
+                    class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 px-6 rounded-lg shadow-lg border-2 border-blue-400 transition-all transform hover:scale-105 uppercase tracking-widest text-xl"
+                    disabled
+                  >
+                    Next Day (+)
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Right Side (30%) -->
+        <div
+          id="rightPanel"
+          class="w-[20%] bg-blue-900 relative p-4 border-l-4 border-black flex flex-col gap-4"
+        >
+          <!-- Stats Dashboard -->
+          <div
+            id="statsDashboard"
+            class="hidden bg-gradient-to-b from-slate-900 to-slate-800 border-2 border-cyan-500/50 p-4 rounded-lg shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all duration-500 relative overflow-hidden"
+          >
+            <div
+              class="absolute top-0 left-0 w-full h-1 bg-cyan-500 shadow-[0_0_10px_#06b6d4]"
+            ></div>
+            <h2
+              class="text-cyan-400 font-bold uppercase text-xs tracking-widest mb-4 border-b border-cyan-900/50 pb-2"
+            >
+              Seller Stats
+            </h2>
+            <div class="mb-4">
+              <p class="text-slate-400 text-[10px] uppercase tracking-wider">
+                Bank Balance
+              </p>
+              <p
+                id="bank-balance-display"
+                class="text-2xl font-mono text-white drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]"
+              >
+                £1000
+              </p>
+            </div>
+            
+            <!-- Reputation Bar -->
+            <div class="mb-2">
+               <div class="flex justify-between mb-1">
+                 <p class="text-slate-400 text-[10px] uppercase tracking-wider">Reputation</p>
+                 <p id="reputation-text" class="text-[10px] text-slate-400 font-mono">50%</p>
+               </div>
+               <div class="w-full bg-slate-700 h-2 rounded-full">
+                 <div id="reputation-bar" class="bg-green-500 h-2 rounded-full transition-all duration-500" style="width: 50%"></div>
+               </div>
+            </div>
+
+            <!-- Algo Trust Bar -->
+            <div class="mb-4">
+               <div class="flex justify-between mb-1">
+                 <p class="text-slate-400 text-[10px] uppercase tracking-wider">Algorithm Trust</p>
+                 <p id="algotrust-text" class="text-[10px] text-slate-400 font-mono">50%</p>
+               </div>
+               <div class="w-full bg-slate-700 h-2 rounded-full">
+                 <div id="algotrust-bar" class="bg-blue-500 h-2 rounded-full transition-all duration-500" style="width: 50%"></div>
+               </div>
+            </div>
+            <div>
+              <p class="text-slate-400 text-[10px] uppercase tracking-wider">
+                Day
+              </p>
+              <p id="day-display" class="text-xl font-mono text-white">
+                1
+              </p>
+            </div>
+            <div class="mt-4 border-t border-cyan-900/50 pt-4">
+              <p class="text-slate-400 text-[10px] uppercase tracking-wider">
+                Remaining Time
+              </p>
+              <p id="time-display" class="text-xl font-mono text-blue-400">
+                1 Month
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Outcome Modal -->
+      <div
+        id="outcomeModal"
+        class="hidden fixed inset-0 z-50 bg-black/80 flex items-center justify-center"
+      >
+        <div
+          class="bg-white p-8 rounded-xl max-w-md w-full text-center shadow-2xl border-4 border-slate-200 animate-fade-in"
+        >
+          <h2
+            id="outcomeTitle"
+            class="text-3xl font-black text-slate-800 mb-4 uppercase tracking-widest"
+          ></h2>
+          <p
+            id="outcomeDescription"
+            class="text-lg text-slate-600 mb-6 leading-relaxed"
+          ></p>
+          <div
+            id="outcomeStats"
+            class="flex flex-col gap-2 mb-8 font-bold text-sm uppercase tracking-wider"
+          ></div>
+          <button
+            id="outcomeContinueBtn"
+            class="w-full bg-slate-800 text-white font-bold py-4 rounded hover:bg-purple-600 transition-colors uppercase tracking-widest shadow-lg"
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 3 Intervention Dialogue -->
+    <div id="day3Dialogue" class="fixed inset-0 z-[90] bg-black/80 flex items-center justify-center hidden transition-opacity duration-500 opacity-0">
+      <div class="bg-slate-900 border-4 border-purple-600 p-8 rounded-xl shadow-2xl relative max-w-md w-full mx-4">
+        <div class="absolute -top-4 left-6 bg-purple-600 text-white px-4 py-1 font-bold uppercase text-xs tracking-widest rounded shadow-lg">
+          Algorithm Believer
+        </div>
+        <p class="text-slate-200 mono leading-relaxed mb-6 text-sm">
+          Hmm... the silence is deafening. No sales yet? Would you like some guidance?
+        </p>
+        <div class="flex gap-3 justify-end">
+          <button id="day3YesBtn" class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded border-2 border-purple-400 shadow-[0_0_10px_rgba(168,85,247,0.5)] transition-all transform hover:scale-105 text-xs uppercase tracking-wider">
+            Yes, help me.
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Endgame Screen Overlay -->
+    <div id="endGameScreen" class="hidden fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center text-center p-8 transition-opacity duration-1000 opacity-0">
+      <h1 id="endGameTitle" class="text-6xl md:text-8xl font-black mb-8 uppercase tracking-widest drop-shadow-2xl"></h1>
+      
+      <div class="relative mb-8">
+         <img src="purple-monk.png" id="endGameImg" class="w-64 h-64 object-contain drop-shadow-2xl transition-all duration-1000" alt="End Game Character">
+      </div>
+
+      <p id="endGameMessage" class="text-xl md:text-2xl font-bold text-white mb-12 max-w-3xl drop-shadow-md leading-relaxed font-mono"></p>
+
+      <button
+        id="playAgainBtn"
+        class="px-10 py-4 text-xl font-black text-white border-4 border-white bg-transparent hover:bg-white hover:text-black transition-all duration-300 uppercase tracking-widest shadow-xl transform hover:scale-105"
+      >
+        Play Again
+      </button>
+    </div>
+
+    <!-- Minigame Layer -->
+    <div id="minigame-layer" class="hidden fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center">
+        <button id="closeMinigameBtn" class="absolute top-4 right-4 bg-red-600 text-white px-6 py-3 font-bold rounded border-2 border-white shadow-lg hover:bg-red-500 uppercase text-sm tracking-widest z-[110] transition-transform hover:scale-105">
+            Close / Force Quit
+        </button>
+        <!-- Container for game content to ensure close button isn't wiped -->
+        <div id="minigame-content" class="w-full h-full relative flex items-center justify-center"></div>
+    </div>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
